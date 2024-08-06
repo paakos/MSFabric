@@ -1,0 +1,515 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dataset1"
+              },
+              "schema": [],
+              "linkedService": {
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "636d96c7-4c85-4351-99aa-82521844de26",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                },
+                "name": "lkhgold01"
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "tableOption": "autoCreate",
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dataset1"
+              },
+              "schema": [],
+              "linkedService": {
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "eddae8e2-6496-4541-954d-074fe5315634",
+                    "endpoint": "x75vz6vxzgdurjal2qxjy6tnnm-kydasphcml2epdhss4haxwkwnq.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "3c090656-62e2-47f4-8cf2-970e0bd9566c"
+                  },
+                  "annotations": []
+                },
+                "name": "goldwh01"
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "cod_pais_iso2",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cod_pais_iso2",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "cod_city",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cod_city",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "txt_state",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "txt_state",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "txt_latitude",
+                  "type": "Double",
+                  "physicalType": "double"
+                },
+                "sink": {
+                  "name": "txt_latitude",
+                  "physicalType": "float"
+                }
+              },
+              {
+                "source": {
+                  "name": "cod_postal",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cod_postal",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "val_population",
+                  "type": "Int32",
+                  "physicalType": "integer"
+                },
+                "sink": {
+                  "name": "val_population",
+                  "physicalType": "int"
+                }
+              },
+              {
+                "source": {
+                  "name": "val_average_income",
+                  "type": "Double",
+                  "physicalType": "double"
+                },
+                "sink": {
+                  "name": "val_average_income",
+                  "physicalType": "float"
+                }
+              },
+              {
+                "source": {
+                  "name": "txt_mayor",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "txt_mayor",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "LoadDataset1",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dataset2"
+              },
+              "schema": [],
+              "linkedService": {
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "636d96c7-4c85-4351-99aa-82521844de26",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                },
+                "name": "lkhgold01"
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "tableOption": "autoCreate",
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dataset2"
+              },
+              "schema": [],
+              "linkedService": {
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "eddae8e2-6496-4541-954d-074fe5315634",
+                    "endpoint": "x75vz6vxzgdurjal2qxjy6tnnm-kydasphcml2epdhss4haxwkwnq.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "3c090656-62e2-47f4-8cf2-970e0bd9566c"
+                  },
+                  "annotations": []
+                },
+                "name": "goldwh01"
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "cod_pais_iso2",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cod_pais_iso2",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "cod_city",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cod_city",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "txt_state",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "txt_state",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "cod_postal",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cod_postal",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "txt_street",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "txt_street",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "LoadDataset2",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dataset3"
+              },
+              "schema": [],
+              "linkedService": {
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "636d96c7-4c85-4351-99aa-82521844de26",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                },
+                "name": "lkhgold01"
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "tableOption": "autoCreate",
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dataset3"
+              },
+              "schema": [],
+              "linkedService": {
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "eddae8e2-6496-4541-954d-074fe5315634",
+                    "endpoint": "x75vz6vxzgdurjal2qxjy6tnnm-kydasphcml2epdhss4haxwkwnq.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "3c090656-62e2-47f4-8cf2-970e0bd9566c"
+                  },
+                  "annotations": []
+                },
+                "name": "goldwh01"
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "cod_pais_iso2",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cod_pais_iso2",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "cod_city",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cod_city",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "txt_state",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "txt_state",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "txt_latitude",
+                  "type": "Double",
+                  "physicalType": "double"
+                },
+                "sink": {
+                  "name": "txt_latitude",
+                  "physicalType": "float"
+                }
+              },
+              {
+                "source": {
+                  "name": "cod_postal",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cod_postal",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "val_population",
+                  "type": "Int32",
+                  "physicalType": "integer"
+                },
+                "sink": {
+                  "name": "val_population",
+                  "physicalType": "int"
+                }
+              },
+              {
+                "source": {
+                  "name": "val_average_income",
+                  "type": "Double",
+                  "physicalType": "double"
+                },
+                "sink": {
+                  "name": "val_average_income",
+                  "physicalType": "float"
+                }
+              },
+              {
+                "source": {
+                  "name": "txt_mayor",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "txt_mayor",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "sequence",
+                  "type": "Int32",
+                  "physicalType": "integer"
+                },
+                "sink": {
+                  "name": "sequence",
+                  "physicalType": "int"
+                }
+              },
+              {
+                "source": {
+                  "name": "operation",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "operation",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "time",
+                  "type": "DateTime",
+                  "physicalType": "timestamp"
+                },
+                "sink": {
+                  "name": "time",
+                  "physicalType": "datetime2",
+                  "precision": 6
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "LoadDataset3",
+        "dependsOn": []
+      }
+    ]
+  }
+}
