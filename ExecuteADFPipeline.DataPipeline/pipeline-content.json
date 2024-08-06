@@ -1,0 +1,58 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "ExecADFPileline",
+        "type": "WebHook",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
+        "policy": {
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "relativeUrl": {
+            "value": "https://management.azure.com/subscriptions/9c655958-f8a7-4cb4-975d-2e65bfab228e/resourceGroups/DatafactoryDemospaakos1rg/providers/Microsoft.DataFactory/factories/datafactorypaakos1/pipelines/waitpipeline/createRun?api-version=2018-06-01",
+            "type": "Expression"
+          },
+          "method": "POST",
+          "headers": {},
+          "body": {
+            "value": "@json('{}')",
+            "type": "Expression"
+          },
+          "timeout": "00:10:00"
+        },
+        "externalReferences": {
+          "connection": "48953df6-bac0-4532-967f-c516a848600b"
+        }
+      },
+      {
+        "name": "ExecADFPileline_copy1",
+        "type": "WebHook",
+        "dependsOn": [],
+        "policy": {
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "relativeUrl": {
+            "value": "https://management.azure.com/subscriptions/9c655958-f8a7-4cb4-975d-2e65bfab228e/resourceGroups/DatafactoryDemospaakos1rg/providers/Microsoft.DataFactory/factories/datafactorypaakos1/pipelines/waitpipeline/createRun?api-version=2018-06-01'",
+            "type": "Expression"
+          },
+          "method": "POST",
+          "headers": {},
+          "body": {
+            "value": "@json('{}')",
+            "type": "Expression"
+          },
+          "timeout": "00:10:00"
+        },
+        "externalReferences": {
+          "connection": "a658fb22-ac16-4429-93a8-71c9eb812171"
+        }
+      }
+    ]
+  }
+}

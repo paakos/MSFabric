@@ -1,0 +1,46 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "WebHook1",
+        "type": "WebHook",
+        "dependsOn": [],
+        "policy": {
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "relativeUrl": {
+            "value": "https://management.azure.com/subscriptions/9c655958-f8a7-4cb4-975d-2e65bfab228e/resourceGroups/DatafactoryDemospaakos1rg/providers/Microsoft.DataFactory/factories/datafactorypaakos1/pipelines/waitpipeline/createRun?api-version=2018-06-01",
+            "type": "Expression"
+          },
+          "method": "POST",
+          "headers": {},
+          "body": {
+            "value": "@json('{}')",
+            "type": "Expression"
+          },
+          "timeout": "00:1:00",
+          "reportStatusOnCallBack": true
+        },
+        "externalReferences": {
+          "connection": "07f6b14f-6a4c-4772-97a5-805bff3c5902"
+        }
+      }
+    ],
+    "variables": {
+      "relativeurl": {
+        "type": "String",
+        "defaultValue": "https://management.azure.com/subscriptions/9c655958-f8a7-4cb4-975d-2e65bfab228e/resourceGroups/DatafactoryDemospaakos1rg/providers/Microsoft.DataFactory/factories/datafactorypaakos1/pipelines/waitpipeline/createRun?api-version=2018-06-01"
+      },
+      "body": {
+        "type": "String",
+        "defaultValue": "json('{}')"
+      },
+      "token_audience": {
+        "type": "String",
+        "defaultValue": "https://management.azure.com"
+      }
+    }
+  }
+}
