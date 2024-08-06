@@ -1,0 +1,519 @@
+{
+  "name": "{{Dataset_Name}}",
+  "compatibilityLevel": 1604,
+  "model": {
+    "name": "{{Dataset_Name}}",
+    "culture": "en-US",
+    "collation": "Latin1_General_100_BIN2_UTF8",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "Control",
+        "sourceLineageTag": "[audit].[Control]",
+        "columns": [
+          {
+            "name": "TableName",
+            "dataType": "string",
+            "sourceColumn": "TableName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "TableName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "Lastloadedtime",
+            "dataType": "dateTime",
+            "sourceColumn": "Lastloadedtime",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "Lastloadedtime",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Dataset_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "Control",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "audit"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "dataset1",
+        "sourceLineageTag": "[dbo].[dataset1]",
+        "columns": [
+          {
+            "name": "cod_pais_iso2",
+            "dataType": "string",
+            "sourceColumn": "cod_pais_iso2",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "cod_pais_iso2",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "cod_city",
+            "dataType": "string",
+            "sourceColumn": "cod_city",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "cod_city",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "txt_state",
+            "dataType": "string",
+            "sourceColumn": "txt_state",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "txt_state",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "txt_latitude",
+            "dataType": "double",
+            "sourceColumn": "txt_latitude",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "txt_latitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "cod_postal",
+            "dataType": "string",
+            "sourceColumn": "cod_postal",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "cod_postal",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "val_population",
+            "dataType": "int64",
+            "sourceColumn": "val_population",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "val_population",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "val_average_income",
+            "dataType": "double",
+            "sourceColumn": "val_average_income",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "val_average_income",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "txt_mayor",
+            "dataType": "string",
+            "sourceColumn": "txt_mayor",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "txt_mayor",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Dataset_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "dataset1",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "dataset2",
+        "sourceLineageTag": "[dbo].[dataset2]",
+        "columns": [
+          {
+            "name": "cod_pais_iso2",
+            "dataType": "string",
+            "sourceColumn": "cod_pais_iso2",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "cod_pais_iso2",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "cod_city",
+            "dataType": "string",
+            "sourceColumn": "cod_city",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "cod_city",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "txt_state",
+            "dataType": "string",
+            "sourceColumn": "txt_state",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "txt_state",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "cod_postal",
+            "dataType": "string",
+            "sourceColumn": "cod_postal",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "cod_postal",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "txt_street",
+            "dataType": "string",
+            "sourceColumn": "txt_street",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "txt_street",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Dataset_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "dataset2",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "dataset3",
+        "sourceLineageTag": "[dbo].[dataset3]",
+        "columns": [
+          {
+            "name": "cod_pais_iso2",
+            "dataType": "string",
+            "sourceColumn": "cod_pais_iso2",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "cod_pais_iso2",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "cod_city",
+            "dataType": "string",
+            "sourceColumn": "cod_city",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "cod_city",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "txt_state",
+            "dataType": "string",
+            "sourceColumn": "txt_state",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "txt_state",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "txt_latitude",
+            "dataType": "double",
+            "sourceColumn": "txt_latitude",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "txt_latitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "cod_postal",
+            "dataType": "string",
+            "sourceColumn": "cod_postal",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "cod_postal",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "val_population",
+            "dataType": "int64",
+            "sourceColumn": "val_population",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "val_population",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "val_average_income",
+            "dataType": "double",
+            "sourceColumn": "val_average_income",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "val_average_income",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "txt_mayor",
+            "dataType": "string",
+            "sourceColumn": "txt_mayor",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "txt_mayor",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "sequence",
+            "dataType": "int64",
+            "sourceColumn": "sequence",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "sequence",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "operation",
+            "dataType": "string",
+            "sourceColumn": "operation",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "operation",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "time",
+            "dataType": "dateTime",
+            "sourceColumn": "time",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "time",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Dataset_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "dataset3",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      }
+    ],
+    "expressions": [
+      {
+        "name": "DatabaseQuery",
+        "kind": "m",
+        "expression": "let\n    database = {{TDS_Endpoint}}\nin\n    database\n"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"exec_requests_history\",\"long_running_queries\",\"frequently_run_queries\",\"exec_sessions_history\",\"dataset1\",\"dataset2\",\"dataset3\",\"Control\"]"
+      },
+      {
+        "name": "SourceLineageTagType",
+        "value": "DatabaseFullyQualifiedName"
+      }
+    ]
+  }
+}
