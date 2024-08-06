@@ -1,0 +1,423 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "b0c94537-3f63-4be2-a35d-7a560960156f",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "table_name": {
+              "value": {
+                "value": "@pipeline().parameters.Table_name",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "retry": 2,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "get_lasttimestamp",
+        "dependsOn": []
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "salida",
+          "value": {
+            "value": "@activity('get_lasttimestamp').output.result.ExitValue",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "setlastmodifieddate",
+        "dependsOn": [
+          {
+            "activity": "get_lasttimestamp",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Lookup",
+        "typeProperties": {
+          "source": {
+            "type": "DataWarehouseSource",
+            "sqlReaderQuery": {
+              "value": "@concat('Select Lastloadedtime from goldwh01.audit.Controlwhere TableName = ','''',pipeline().parameters.Table_name,'''')",
+              "type": "Expression"
+            },
+            "partitionOption": "None",
+            "queryTimeout": "02:00:00"
+          },
+          "datasetSettings": {
+            "type": "DataWarehouseTable",
+            "typeProperties": {
+              "schema": "audit",
+              "table": "Control"
+            },
+            "schema": [],
+            "linkedService": {
+              "properties": {
+                "type": "DataWarehouse",
+                "typeProperties": {
+                  "artifactId": "eddae8e2-6496-4541-954d-074fe5315634",
+                  "endpoint": "x75vz6vxzgdurjal2qxjy6tnnm-kydasphcml2epdhss4haxwkwnq.datawarehouse.fabric.microsoft.com",
+                  "workspaceId": "3c090656-62e2-47f4-8cf2-970e0bd9566c"
+                },
+                "annotations": []
+              },
+              "name": "goldwh01"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "get_lastLoadedWatermark",
+        "dependsOn": []
+      },
+      {
+        "type": "SetVariable",
+        "typeProperties": {
+          "variableName": "lastWaterMark",
+          "value": {
+            "value": "@activity('get_lastLoadedWatermark').output.result.ExitValue",
+            "type": "Expression"
+          }
+        },
+        "policy": {
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "SetlastWatermark",
+        "dependsOn": [
+          {
+            "activity": "get_lastLoadedWatermark",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@greater(variables('salida'),variables('lastWaterMark'))",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "TridentNotebook",
+              "typeProperties": {
+                "notebookId": "593c0582-089d-415b-a36d-54b01223d9ff",
+                "workspaceId": "3c090656-62e2-47f4-8cf2-970e0bd9566c",
+                "parameters": {
+                  "table_name": {
+                    "value": {
+                      "value": "@pipeline().parameters.Table_name",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  },
+                  "last_loadedwatermark": {
+                    "value": {
+                      "value": "@variables('lastWaterMark')",
+                      "type": "Expression"
+                    },
+                    "type": "string"
+                  }
+                }
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "PrepareIncrementalset",
+              "dependsOn": []
+            },
+            {
+              "type": "Copy",
+              "typeProperties": {
+                "source": {
+                  "type": "LakehouseTableSource",
+                  "datasetSettings": {
+                    "type": "LakehouseTable",
+                    "typeProperties": {
+                      "schema": "dbo",
+                      "table": "tempdataset1"
+                    },
+                    "schema": [],
+                    "linkedService": {
+                      "properties": {
+                        "type": "Lakehouse",
+                        "typeProperties": {
+                          "artifactId": "c8c96811-35e9-4959-ab9d-cde494b191e6",
+                          "workspaceId": "3c090656-62e2-47f4-8cf2-970e0bd9566c",
+                          "rootFolder": "Tables"
+                        },
+                        "annotations": []
+                      },
+                      "name": "lkhgold01"
+                    },
+                    "annotations": []
+                  }
+                },
+                "sink": {
+                  "type": "DataWarehouseSink",
+                  "allowCopyCommand": true,
+                  "copyCommandSettings": {},
+                  "datasetSettings": {
+                    "type": "DataWarehouseTable",
+                    "typeProperties": {
+                      "schema": "dbo",
+                      "table": "dataset1"
+                    },
+                    "schema": [],
+                    "linkedService": {
+                      "properties": {
+                        "type": "DataWarehouse",
+                        "typeProperties": {
+                          "artifactId": "eddae8e2-6496-4541-954d-074fe5315634",
+                          "endpoint": "x75vz6vxzgdurjal2qxjy6tnnm-kydasphcml2epdhss4haxwkwnq.datawarehouse.fabric.microsoft.com",
+                          "workspaceId": "3c090656-62e2-47f4-8cf2-970e0bd9566c"
+                        },
+                        "annotations": []
+                      },
+                      "name": "goldwh01"
+                    },
+                    "annotations": []
+                  }
+                },
+                "translator": {
+                  "type": "TabularTranslator",
+                  "mappings": [
+                    {
+                      "source": {
+                        "name": "cod_pais_iso2",
+                        "type": "String",
+                        "physicalType": "string"
+                      },
+                      "sink": {
+                        "name": "cod_pais_iso2",
+                        "physicalType": "nvarchar",
+                        "length": "2147483647"
+                      }
+                    },
+                    {
+                      "source": {
+                        "name": "cod_city",
+                        "type": "String",
+                        "physicalType": "string"
+                      },
+                      "sink": {
+                        "name": "cod_city",
+                        "physicalType": "nvarchar",
+                        "length": "2147483647"
+                      }
+                    },
+                    {
+                      "source": {
+                        "name": "txt_state",
+                        "type": "String",
+                        "physicalType": "string"
+                      },
+                      "sink": {
+                        "name": "txt_state",
+                        "physicalType": "nvarchar",
+                        "length": "2147483647"
+                      }
+                    },
+                    {
+                      "source": {
+                        "name": "txt_latitude",
+                        "type": "Double",
+                        "physicalType": "double"
+                      },
+                      "sink": {
+                        "name": "txt_latitude",
+                        "physicalType": "float"
+                      }
+                    },
+                    {
+                      "source": {
+                        "name": "cod_postal",
+                        "type": "String",
+                        "physicalType": "string"
+                      },
+                      "sink": {
+                        "name": "cod_postal",
+                        "physicalType": "nvarchar",
+                        "length": "2147483647"
+                      }
+                    },
+                    {
+                      "source": {
+                        "name": "val_population",
+                        "type": "Int32",
+                        "physicalType": "integer"
+                      },
+                      "sink": {
+                        "name": "val_population",
+                        "physicalType": "int"
+                      }
+                    },
+                    {
+                      "source": {
+                        "name": "val_average_income",
+                        "type": "Double",
+                        "physicalType": "double"
+                      },
+                      "sink": {
+                        "name": "val_average_income",
+                        "physicalType": "float"
+                      }
+                    },
+                    {
+                      "source": {
+                        "name": "txt_mayor",
+                        "type": "String",
+                        "physicalType": "string"
+                      },
+                      "sink": {
+                        "name": "txt_mayor",
+                        "physicalType": "nvarchar",
+                        "length": "2147483647"
+                      }
+                    }
+                  ],
+                  "typeConversion": true,
+                  "typeConversionSettings": {
+                    "allowDataTruncation": true,
+                    "treatBooleanAsNumber": false
+                  }
+                },
+                "enableStaging": true
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "moveIncrementaldata2DWH",
+              "dependsOn": [
+                {
+                  "activity": "PrepareIncrementalset",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SqlServerStoredProcedure",
+              "typeProperties": {
+                "storedProcedureName": "[dbo].[usp_trackNewWatermark]",
+                "storedProcedureParameters": {
+                  "Lastloadedtime": {
+                    "value": {
+                      "value": "@variables('salida')",
+                      "type": "Expression"
+                    },
+                    "type": "DateTime"
+                  },
+                  "TableName": {
+                    "value": {
+                      "value": "@pipeline().parameters.Table_name",
+                      "type": "Expression"
+                    },
+                    "type": "String"
+                  }
+                }
+              },
+              "linkedService": {
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "eddae8e2-6496-4541-954d-074fe5315634",
+                    "endpoint": "x75vz6vxzgdurjal2qxjy6tnnm-kydasphcml2epdhss4haxwkwnq.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "3c090656-62e2-47f4-8cf2-970e0bd9566c"
+                  },
+                  "annotations": []
+                },
+                "name": "goldwh01",
+                "objectId": "eddae8e2-6496-4541-954d-074fe5315634"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "track_loadWatermarkTable",
+              "dependsOn": [
+                {
+                  "activity": "moveIncrementaldata2DWH",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ]
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "If lastModifiedGreaterThanWatermark",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "setlastmodifieddate",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "SetlastWatermark",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ],
+    "parameters": {
+      "Table_name": {
+        "type": "string",
+        "defaultValue": "dataset1"
+      }
+    },
+    "variables": {
+      "salida": {
+        "type": "String",
+        "defaultValue": "dataset1"
+      },
+      "lastWaterMark": {
+        "type": "String",
+        "defaultValue": "00000"
+      }
+    }
+  }
+}
